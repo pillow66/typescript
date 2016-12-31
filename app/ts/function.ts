@@ -324,22 +324,19 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
  * 生成器为一个值序列,生成器对象为一个迭代器,可以调用next()产生结果
  * 定义为function *XXXX(){}
  * 意义:终止函数执行,在需要时恢复执行
- * 暂时未支持(maybe)
  */
-/*
- function *O()
- {
- yield 1;
- yield 2;
- return 3;
+
+ /*function* O(){
+    yield 1;
+    yield 2;
+    return 3;
  }
 
  var o = new O();
  console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
  console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
  console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
- console.log(o.next()); //{done:true}
- */
+ console.log(o.next()); //{done:true}*/
 
 /**
  * 异步函数async和await
@@ -349,7 +346,7 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
 var p = N1Async();
 //异步方法
 async function P():number {
-    //阻塞等待异步结果
+    //阻塞等待异步结果,利用yield实现
     var i = await p;
     console.log("await", i); //后输出:await Object {result:1}
     return i.result;

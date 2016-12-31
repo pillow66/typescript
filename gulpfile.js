@@ -43,7 +43,6 @@ gulp.task('scripts', function () {
 gulp.task('ts', function () {
   return gulp.src('app/ts/**/*.ts')
     .pipe($.typescript())
-    //
     .pipe($.browserify())
     .pipe(gulp.dest('app/scripts'));
 });
