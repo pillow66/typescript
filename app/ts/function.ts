@@ -236,7 +236,7 @@ console.log(l); //3 6  world  hello
 var m = function () {
     console.log("back");
 };
-//高阶函数
+//高阶函数,参数为一个函数
 function M(callback:() => void) {
     console.log("call");
     callback();
@@ -245,7 +245,7 @@ M(m); // 先call再back
 
 /**
  * 箭头函数
- * function表达式的缩写,切会在其作用域内绑定this,不用担心this指向
+ * function表达式的缩写,且会在其作用域内绑定this,不用担心this指向
  */
 var _name = "77";
 class Person {
@@ -315,7 +315,7 @@ function N2Aysnc() {
 N1Async().then(N2Aysnc).then(N1Async); //先N1Async再N2Async最后N1Async
 //并行执行2个异步方法
 $q.all([N1Async(), N2Aysnc()]).then((result)=> {
-    console.log(result);
+    console.log(result); // [{result:1}, {result:2}]
 });
 
 /**
