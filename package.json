@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "typescript",
   "version": "0.0.1",
-  "description": "my package",
+  "description": "study",
   "dependencies": {
     "q": "^1.4.1"
   },
