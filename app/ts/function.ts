@@ -327,7 +327,7 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
  */
 
  /*function* O(){
-    yield 1;
+    yield 1; // 语法木问题,但gulp-browserify处理会报错 (╬￣皿￣)凸
     yield 2;
     return 3;
  }
