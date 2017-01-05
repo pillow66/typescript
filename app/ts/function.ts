@@ -336,7 +336,7 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
  console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
  console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
  console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
- console.log(o.next()); //{done:true}*/
+ console.log(o.next()); //{done
 
 /**
  * 异步函数async和await
