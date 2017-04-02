@@ -283,6 +283,8 @@ p.delay2(); //66
  * typescript并没有引入promise模式,此处引入第三方q.js,或使用ES6
  */
 //CommonJS模式引入q,但typescript1.5后应该建议采用ES6模块引入方式
+//但小笨笨没有成功 (╬￣皿￣)凸
+//原因:ES6引入模块方式浏览器不支持,编译本身没有问题的样子但浏览器执行报错
 var $q = require('q');
 //异步(Async)方法,返回一个Promise对象
 function N1Async() {
@@ -338,7 +340,8 @@ var o = new O();
 console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
 console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
 console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
-console.log(o.next());*/
+console.log(o.next()); //{done:true}
+*/
 
 /**
  * 异步函数async和await
