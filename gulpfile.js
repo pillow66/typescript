@@ -1,65 +1,44 @@
 'use strict';
 
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var $ = require('gulp-load-plugins')();
 
-gulp.task('connect', function () {
-  var connect = require('connect');
-  var app = connect()
-    .use(require('connect-livereload')({port: 35729}))
-    .use(connect.static('app'))
-    .use(connect.directory('app'));
+//编译scss为css
+gulp.task('scss', function () {
+    return gulp.src('app/scss/**/*.scss')
+        //编译sass
+        .pipe($.sass())
+        //加css兼容前缀
+        .pipe($.autoprefixer('last 1 version'))
+        .pipe(gulp.dest('app/css'))
+        .pipe(reload({stream: true}));
+});
 
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
+//编译typescript为js
+gulp.task('typescript', function () {
+    return gulp.src('app/ts/**/*.ts')
+        //编译typescript
+        .pipe($.typescript())
+        //CommonJS模式引入
+        .pipe($.browserify())
+        .pipe(gulp.dest('app/js'))
+        .pipe(reload({stream: true}));
+});
+
+//启动browserSync服务器
+gulp.task('serve', ['scss', 'typescript'], function () {
+    browserSync.init({
+        server: {
+            baseDir: "app/"
+        }
     });
-});
 
-gulp.task('serve', ['connect'], function () {
-  require('opn')('http://localhost:9000');
-});
-
-gulp.task('styles', function () {
-  return gulp.src('app/sass/**/*.scss')
-    .pipe($.sass({errLogToConsole: true}))
-    .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('app/styles'))
-    .pipe(reload({stream: true}))
-//        .pipe($.notify("Compilation complete."))
-    ;
-});
-
-gulp.task('scripts', function () {
-  return gulp.src('app/scripts/**/*.js')
-    .pipe($.jshint())
-    .pipe($.jshint.reporter(require('jshint-stylish')))
-    .pipe($.size());
-});
-
-gulp.task('ts', function () {
-  return gulp.src('app/ts/**/*.ts')
-    .pipe($.typescript())
-    .pipe($.browserify())
-    .pipe(gulp.dest('app/scripts'));
-});
-
-gulp.task('watch', ['connect', 'serve'], function () {
-  var server = $.livereload();
-
-  gulp.watch('app/sass/**/*.scss', ['styles']);
-  gulp.watch('app/scripts/**/*.js', ['scripts']);
-  gulp.watch('app/ts/**/*.ts', ['ts']);
-  gulp.watch([
-    'app/*.html',
-    'app/styles/**/*.css',
-    'app/sass/**/*.scss',
-    'app/scripts/**/*.js',
-    'app/ts/**/*.ts'
-  ]).on('change', function (file) {
-    server.changed(file.path);
-  });
+    //文件监控改动
+    //流的方式更新
+    gulp.watch("app/scss/**/*.scss", ['scss']);
+    gulp.watch("app/ts/**/*.ts", ['typescript']);
+    //手动重载页面
+    gulp.watch("app/**/*.html").on("change", browserSync.reload);
 });

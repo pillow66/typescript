@@ -3,24 +3,17 @@
   "version": "0.0.1",
   "description": "study",
   "dependencies": {
-    "q": "^1.4.1"
+    "q": "^1.5.0"
   },
   "devDependencies": {
-    "browser-sync": "^0.9.1",
-    "connect": "^2.14.4",
-    "connect-livereload": "^0.4.0",
-    "gulp": "^3.6.0",
-    "gulp-autoprefixer": "^0.0.7",
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
     "gulp-browserify": "^0.5.1",
-    "gulp-jshint": "^1.6.1",
-    "gulp-livereload": "^1.2.0",
-    "gulp-load-plugins": "^0.5.0",
-    "gulp-notify": "^1.2.6",
-    "gulp-sass": "^0.7.1",
-    "gulp-size": "^0.3.1",
-    "gulp-typescript": "^1.0.0",
-    "jshint-stylish": "^0.2.0",
-    "opn": "^0.1.1"
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-typescript": "^3.1.6",
+    "typescript": "^2.3.0-dev.20170402"
   },
   "repository": {},
   "readme": {}

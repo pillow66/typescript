@@ -249,6 +249,8 @@ M(m); // 先call再back
  */
 var _name = "77";
 class Person {
+    private _name;
+
     constructor(name:string) {
         this._name = name;
     }
@@ -280,7 +282,7 @@ p.delay2(); //66
  * rejected:异步结果失败状态,执行catch方法
  * typescript并没有引入promise模式,此处引入第三方q.js,或使用ES6
  */
-//CommonJS模式引入q
+//CommonJS模式引入q,但typescript1.5后应该建议采用ES6模块引入方式
 var $q = require('q');
 //异步(Async)方法,返回一个Promise对象
 function N1Async() {
@@ -326,17 +328,17 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
  * 意义:终止函数执行,在需要时恢复执行
  */
 
- /*function* O(){
+/*function* O() {
     yield 1; // 语法木问题,但gulp-browserify处理会报错 (╬￣皿￣)凸
     yield 2;
     return 3;
- }
+}
 
- var o = new O();
- console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
- console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
- console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
- console.log(o.next()); //{done
+var o = new O();
+console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
+console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
+console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
+console.log(o.next());*/
 
 /**
  * 异步函数async和await
