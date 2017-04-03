@@ -17,8 +17,19 @@ gulp.task('scss', function () {
 });
 
 //编译typescript为js
-gulp.task('typescript', function () {
-    return gulp.src('app/ts/**/*.ts')
+//合并typescript模块
+gulp.task('models', function () {
+    return gulp.src('app/ts/models/**/*.ts')
+        //编译typescript
+        .pipe($.typescript())
+        //合并模块文件到models.js
+        .pipe($.concat('models.js'))
+        .pipe(gulp.dest('app/js'))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('typescript', ['models'], function () {
+    return gulp.src('app/ts/*.ts')
         //编译typescript
         .pipe($.typescript())
         //CommonJS模式引入
@@ -29,6 +40,7 @@ gulp.task('typescript', function () {
 
 //启动browserSync服务器
 gulp.task('serve', ['scss', 'typescript'], function () {
+    //配置服务器
     browserSync.init({
         server: {
             baseDir: "app/"

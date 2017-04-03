@@ -2,6 +2,7 @@
  * Created by lulu on 16/12/30.
  */
 "use strict"
+document.querySelector("body>div").innerHTML = "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄";
 
 /**
  * 函数声明和函数表达式
