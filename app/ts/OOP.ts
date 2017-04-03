@@ -284,3 +284,8 @@ var model2_1 = new lulu.app.Model2_1();
 console.log(model2_1.name);
 var model2_2 = new lulu.app.Model2_2();
 console.log(model2_2.name);
+
+//import语句可提供模块别名
+import e2e = lulu.app.test.e2e;
+var test = new e2e.test();
+console.log(test.name);
