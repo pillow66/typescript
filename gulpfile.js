@@ -24,22 +24,25 @@ gulp.task('models', function () {
         .pipe($.typescript())
         //合并模块文件到models.js
         .pipe($.concat('models.js'))
-        .pipe(gulp.dest('app/js'))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest('app/js/models'));
 });
 
 gulp.task('typescript', ['models'], function () {
-    return gulp.src('app/ts/*.ts')
+    return gulp.src(['app/ts/*.ts', 'app/ts/outModels/**/*.ts'], {base: 'app/ts'})
         //编译typescript
         .pipe($.typescript())
-        //CommonJS模式引入
+        .pipe(gulp.dest('app/js'));
+});
+
+gulp.task('scripts', ['typescript'], function () {
+    return gulp.src('app/js/*.js')
         .pipe($.browserify())
         .pipe(gulp.dest('app/js'))
         .pipe(reload({stream: true}));
 });
 
 //启动browserSync服务器
-gulp.task('serve', ['scss', 'typescript'], function () {
+gulp.task('serve', ['scss', 'scripts'], function () {
     //配置服务器
     browserSync.init({
         server: {
@@ -50,7 +53,7 @@ gulp.task('serve', ['scss', 'typescript'], function () {
     //文件监控改动
     //流的方式更新
     gulp.watch("app/scss/**/*.scss", ['scss']);
-    gulp.watch("app/ts/**/*.ts", ['typescript']);
+    gulp.watch("app/ts/**/*.ts", ['scripts']);
     //手动重载页面
     gulp.watch("app/**/*.html").on("change", browserSync.reload);
 });

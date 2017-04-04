@@ -330,19 +330,17 @@ $q.all([N1Async(), N2Aysnc()]).then((result)=> {
  * 定义为function *XXXX(){}
  * 意义:终止函数执行,在需要时恢复执行
  */
-
-/*function* O() {
-    yield 1; // 语法木问题,但gulp-browserify处理会报错 (╬￣皿￣)凸
+function * O() {
+    yield 1;
     yield 2;
     return 3;
 }
 
 var o = new O();
-console.log(o.next()); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
-console.log(o.next()); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
-console.log(o.next()); //{value:3, done:true} 调用next,最终才完成该函数的执行
-console.log(o.next()); //{done:true}
-*/
+console.log("生成器:" + o.next().done); //{value:1, done:false} 执行到yield 1;返回1,并终止,直到下一次next调用;
+console.log("生成器:" + o.next().done); //{value:2, done:false} 执行到yield 2;返回2,并终止,直到下一次next调用
+console.log("生成器:" + o.next().done); //{value:3, done:true} 调用next,最终才完成该函数的执行
+console.log("生成器:" + o.next().done); //{done:true}
 
 /**
  * 异步函数async和await

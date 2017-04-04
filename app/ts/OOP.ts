@@ -289,3 +289,23 @@ console.log(model2_2.name);
 import e2e = lulu.app.test.e2e;
 var test = new e2e.test();
 console.log(test.name);
+
+/**
+ * 模块(外部模块)
+ * 模块与命名空间的区别,命名空间需要用<script></script>引入,模块会由模块加载器自动引入
+ * typescript 1.5以后支持ES6模块加载语法
+ */
+import {OutModel1} from "./outModels/OutModel1";
+var outModel1 = new OutModel1();
+console.log(outModel1.name);
+
+import {OM2} from "./outModels/OutModel2";
+var om2 = new OM2();
+console.log(om2.name);
+
+//导入多个模块到实体
+import {OutModel3_1, OutModel3_2} from "./outModels/OutModel3";
+var outModel3_1 = new OutModel3_1();
+console.log(outModel3_1.name);
+var outModel3_2 = new OutModel3_2();
+console.log(outModel3_2.name);
