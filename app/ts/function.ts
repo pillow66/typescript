@@ -357,3 +357,5 @@ async function P():number {
 };
 
 console.log("async", P()); //先输出:async Promise
+
+
