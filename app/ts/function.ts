@@ -46,6 +46,7 @@ var D:(name:string) => string = function (name:string):string {
 /**
  * 函数可选参数
  * 通过在参数后追加一个字符?
+ * 可选参数后不允许再出现必选参数
  */
 function E(foo:number, bar?:number, foobar?:number):number {
     var result = foo;
@@ -70,6 +71,7 @@ console.log(E(1, 2, 3)); //6
 /**
  * 默认参数函数
  * 某些场景,应为一个可选参数设置默认值
+ * 此时不受【可选参数后不允许再出现必选参数】限制
  */
 function F(foo:number, bar?:number = 0, foobar?:number = 1):number {
     return foo + bar + foobar;
@@ -79,7 +81,8 @@ console.log(F(1)); //2
 
 /**
  * 剩余参数的函数
- * ...语法允许传递任意数量的参数
+ * ...语法允许传递任意数量的参数,本质是一个数组对象
+ * 只能是最后一个参数
  */
 function G(...foo:number[]):number {
     var result = 0;
@@ -101,7 +104,7 @@ console.log(G(1, 2, 3)); //6
  * 函数重载
  * typescript通过声明多个函数签名,再将一个签名作为实现,
  */
-//重载签名,必须有相同返回
+//重载签名,必须有相同返回????返回值使用联合类型,可不相同
 function H(name:string):string;
 function H(age:number):string;
 //function H(age:number, sex:boolean):string;
@@ -121,6 +124,20 @@ function H(value:(string | number)):string {
 //console.log(H());
 console.log(H("lulu"));
 console.log(H(6));
+
+function reverse(x:number):number;
+function reverse(x:string):string;
+function reverse(x:number | string):number | string {
+    if (typeof x === 'number') {
+        return x;
+    }
+    else if (typeof x === 'string') {
+        return x;
+    }
+}
+
+console.log(reverse(6));
+console.log(reverse("six"));
 
 /**
  * 特定重载签名(接口)
@@ -357,5 +374,3 @@ async function P():number {
 };
 
 console.log("async", P()); //先输出:async Promise
-
-
